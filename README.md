@@ -1,5 +1,7 @@
 # FlappyBirdThreeJS
 
+https://rafaelfrisch.github.io/FlappyBirdThreeJS/
+
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
