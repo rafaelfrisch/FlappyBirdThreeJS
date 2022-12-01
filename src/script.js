@@ -98,6 +98,21 @@ const tick = () => {
     }
   }
 
+  for (var vertexIndex = 0; vertexIndex < player.geometry.attributes.position.array.length; vertexIndex++)
+  {       
+      var localVertex = new THREE.Vector3().fromBufferAttribute(player.geometry.attributes.position, vertexIndex).clone();
+      var globalVertex = localVertex.applyMatrix4(player.matrix);
+      var directionVector = globalVertex.sub( player.position );
+  
+      var ray = new THREE.Raycaster( player.position, directionVector.clone().normalize() );
+      var collisionResults = ray.intersectObjects( obstaclesArray );
+      if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
+      {
+        console.log('colisao')
+      }
+  }
+  
+
   // Render
   renderer.render(scene, camera);
 
