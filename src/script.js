@@ -49,7 +49,10 @@ const controls = createControls(camera, canvas)
 /**
  * Cube
  */
-const cube = createCube(scene)
+const player = createCube(scene)
+
+const obstacle = createCube(scene)
+obstacle.translateZ(-10);
 
 /**
  * Renderer
@@ -70,7 +73,7 @@ const tick = () =>
 
     // Update controls
     controls.update()
-
+    obstacle.translateZ(0.05)
     // Render
     renderer.render(scene, camera)
 
