@@ -5,6 +5,7 @@ import createCamera from './camera'
 import createControls from './controls'
 import { createCube } from './shapes'
 import createRenderer from './renderer'
+import calculateNewVelocity from './jump'
 
 /**
  * Base
@@ -38,6 +39,15 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+let isJumping = false
+
+window.addEventListener('click', () => {
+  if (!isJumping) {
+    isJumping = true
+    playerVelocity = initialVelocity
+  }
+})
+
 /**
  * Camera
  */
@@ -50,6 +60,8 @@ const controls = createControls(camera, canvas)
  * Cube
  */
 const player = createCube(scene)
+const initialVelocity = 0.5;
+let playerVelocity = initialVelocity;
 
 const obstacle = createCube(scene)
 obstacle.translateZ(-10);
@@ -70,10 +82,21 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - lastElapsedTime
     lastElapsedTime = elapsedTime
-
     // Update controls
     controls.update()
     obstacle.translateZ(0.05)
+    if (isJumping) {
+      playerVelocity = calculateNewVelocity(playerVelocity, deltaTime)
+      player.translateY(playerVelocity)
+      if (player.position.y < 0) {
+        isJumping = false
+        player.position.y = 0
+      }
+    }
+    
+    // player.position.z = 0
+    // console.log(player.position)
+    // console.log(player.getWorldPosition)
     // Render
     renderer.render(scene, camera)
 
