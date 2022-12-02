@@ -54,15 +54,22 @@ window.addEventListener("resize", () => {
 });
 
 let isJumping = false;
+let jumpStartedTime;
 
 window.addEventListener("click", () => {
   if (!isJumping && gameInitiated) {
     isJumping = true;
     playerVelocity = initialVelocity;
+    jumpStartedTime = lastElapsedTime
   }
   if (!gameInitiated) {
     gameInitiated = true;
     initialMessage.style.display = "none";
+  }
+  if (isJumping) {
+    if (lastElapsedTime - jumpStartedTime > 10 * lastDeltaTime && player.position.y < 4.5) {
+      playerVelocity = initialVelocity;
+    }
   }
 });
 
@@ -94,11 +101,13 @@ const renderer = createRenderer(canvas, sizes);
  */
 const clock = new THREE.Clock();
 let lastElapsedTime = 0;
+let lastDeltaTime = 0;
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
   const deltaTime = elapsedTime - lastElapsedTime;
   lastElapsedTime = elapsedTime;
+  lastDeltaTime = deltaTime;
   // Update controls
 
   if (gameInitiated && !gameOver) {
@@ -109,10 +118,15 @@ const tick = () => {
     if (isJumping) {
       playerVelocity = calculateNewVelocity(playerVelocity, deltaTime);
       player.translateY(playerVelocity);
-      if (player.position.y < 0) {
-        isJumping = false;
-        player.position.y = 0;
-      }
+    }
+
+    if (player.position.y < 0) {
+      isJumping = false;
+      player.position.y = 0;
+    }
+
+    if (player.position.y > 4.5) {
+      playerVelocity = 0;
     }
 
     for (

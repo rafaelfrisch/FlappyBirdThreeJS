@@ -1,7 +1,7 @@
 import { updateGameScore } from "./script";
 import { createCube } from "./shapes";
 
-const numObstacles = 4
+const numObstacles = 4;
 
 const addBottomObstacle = (scene, position) => {
   const obstacle = createCube(scene);
@@ -14,18 +14,17 @@ const addTopObstacle = (scene, position) => {
   obstacle.translateZ(-position);
   obstacle.translateY(5);
   return obstacle;
-}
+};
 
 export const initiateObstacles = (scene, obstacleDistance) => {
-  const obstaclesArray = []
+  const obstaclesArray = [];
 
-  for (let i = 1; i <= numObstacles ; i++) {
+  for (let i = 1; i <= numObstacles; i++) {
     let bottomObstacle = addBottomObstacle(scene, i * obstacleDistance);
-    let topObstacle =  addTopObstacle(scene, i * obstacleDistance);
-    obstaclesArray.push(bottomObstacle)
-    obstaclesArray.push(topObstacle)
+    let topObstacle = addTopObstacle(scene, i * obstacleDistance);
+    obstaclesArray.push(bottomObstacle);
+    obstaclesArray.push(topObstacle);
   }
-  console.log(obstaclesArray)
 
   return obstaclesArray;
 };
