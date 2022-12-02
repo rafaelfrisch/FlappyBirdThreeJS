@@ -29,12 +29,19 @@ export const initiateObstacles = (scene, obstacleDistance) => {
   return obstaclesArray;
 };
 
+let updateGameBool = true;
+
 export const updateObstaclesPosition = (obstaclesArray, obstacleDistance) => {
   obstaclesArray.forEach((obstacle) => {
     obstacle.translateZ(0.05);
+
     if (obstacle.position.z > 10) {
-      obstacle.position.z = -4 * obstacleDistance;
+      obstacle.position.z = -numObstacles * obstacleDistance;
+      updateGameBool = true;
+    }
+    if (obstacle.position.z > 0 && updateGameBool) {
       updateGameScore();
+      updateGameBool = false;
     }
   });
 };
