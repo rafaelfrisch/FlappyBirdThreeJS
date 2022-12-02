@@ -27,7 +27,7 @@ loader.load('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/39222e18-
 let gameScore = 0;
 
 export const updateGameScore = () => {
-  gameScore += 5;
+  gameScore += 10;
   gameScoreMessage.innerHTML = `Score <br> ${gameScore}`;
 }
 
@@ -88,7 +88,7 @@ const controls = createControls(camera, canvas);
 /**
  * Cube
  */
-const player = createCube(scene, 1);
+const player = createCube(scene, 1, true);
 const initialVelocity = 0.4;
 let playerVelocity = initialVelocity;
 let obstacleDistance = 10;
