@@ -67,7 +67,7 @@ window.addEventListener("click", () => {
     initialMessage.style.display = "none";
   }
   if (isJumping) {
-    if (lastElapsedTime - jumpStartedTime > 10 * lastDeltaTime && player.position.y < 4.5) {
+    if (lastElapsedTime - jumpStartedTime > 10 * lastDeltaTime && player.position.y < 5) {
       playerVelocity = initialVelocity;
     }
   }
@@ -125,7 +125,7 @@ const tick = () => {
       player.position.y = 0;
     }
 
-    if (player.position.y > 4.5) {
+    if (player.position.y > 5) {
       playerVelocity = 0;
     }
 
