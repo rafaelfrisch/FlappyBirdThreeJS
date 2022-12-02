@@ -49,6 +49,7 @@ window.addEventListener("click", () => {
   }
   if (!gameInitiated) {
     gameInitiated = true;
+    initialMessage.style.display = "none";
   }
 });
 
@@ -122,6 +123,7 @@ const tick = () => {
         collisionResults[0].distance < directionVector.length()
       ) {
         gameOver = true;
+        gameOverMessage.style.display = "block";
       }
     }
   }
@@ -134,3 +136,25 @@ const tick = () => {
 };
 
 tick();
+
+const initialMessage = document.createElement("div");
+initialMessage.style.position = "absolute";
+initialMessage.style.width = "100%";
+initialMessage.style.textAlign = "center";
+initialMessage.style.color = "#fff";
+initialMessage.style.fontSize = "50" + "px";
+initialMessage.innerHTML = "Press anywhere to play";
+initialMessage.style.top = 20 + "%";
+
+const gameOverMessage = document.createElement("div");
+gameOverMessage.style.position = "absolute";
+gameOverMessage.style.width = "100%";
+gameOverMessage.style.textAlign = "center";
+gameOverMessage.style.color = "#f00";
+gameOverMessage.style.fontSize = "50" + "px";
+gameOverMessage.innerHTML = "Game Over! <br> Refresh page to play again";
+gameOverMessage.style.top = 10 + "%";
+gameOverMessage.style.display = "none";
+
+document.body.appendChild(initialMessage);
+document.body.appendChild(gameOverMessage);
