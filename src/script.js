@@ -18,6 +18,13 @@ let gameOver = false;
 // Scene
 const scene = new THREE.Scene();
 
+// creating background
+const loader = new THREE.TextureLoader();
+loader.load('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/39222e18-80cb-4cf9-abf3-a86ee32917cd/d7bfdvl-8d7734fa-79d8-4513-850a-c9cc8d6a2e82.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzM5MjIyZTE4LTgwY2ItNGNmOS1hYmYzLWE4NmVlMzI5MTdjZFwvZDdiZmR2bC04ZDc3MzRmYS03OWQ4LTQ1MTMtODUwYS1jOWNjOGQ2YTJlODIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.FaCwTn05XAAF6UDB3Wumpfm8RKJr04REgU0VsxG0ghA', function (texture) {
+  scene.background = texture;
+});
+
+
 let gameScore = 0;
 
 export const updateGameScore = () => {
