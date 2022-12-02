@@ -20,6 +20,11 @@ const scene = new THREE.Scene();
 
 let gameScore = 0;
 
+export const updateGameScore = () => {
+  gameScore +=10;
+  gameScoreMessage.innerHTML = `Score <br> ${gameScore}`;
+}
+
 /**
  * Sizes
  */
@@ -160,12 +165,13 @@ gameOverMessage.style.display = "none";
 
 const gameScoreMessage = document.createElement("div");
 gameScoreMessage.style.position = "absolute";
-gameScoreMessage.style.width = "100%";
+gameScoreMessage.style.width = "25%";
+gameScoreMessage.style.left = "75%";
 gameScoreMessage.style.textAlign = "center";
 gameScoreMessage.style.color = "#fff";
 gameScoreMessage.style.fontSize = "50" + "px";
 gameScoreMessage.innerHTML = `Score <br> ${gameScore}`;
-gameScoreMessage.style.top = 5 + "%";
+gameScoreMessage.style.top = 2 + "%";
 
 document.body.appendChild(initialMessage);
 document.body.appendChild(gameOverMessage);

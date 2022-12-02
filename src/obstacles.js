@@ -1,3 +1,4 @@
+import { updateGameScore } from "./script";
 import { createCube } from "./shapes";
 
 export const addObstacle = (scene, position) => {
@@ -20,6 +21,7 @@ export const updateObstaclesPosition = (obstaclesArray, obstacleDistance) => {
     obstacle.translateZ(0.05);
     if (obstacle.position.z > 10) {
       obstacle.position.z = -4 * obstacleDistance;
+      updateGameScore();
     }
   });
 };
