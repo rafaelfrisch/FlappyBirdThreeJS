@@ -172,6 +172,7 @@ initialMessage.style.width = "100%";
 initialMessage.style.textAlign = "center";
 initialMessage.style.color = "#fff";
 initialMessage.style.fontSize = "50" + "px";
+initialMessage.style.userSelect = 'none';
 initialMessage.innerHTML = "Press anywhere to play";
 initialMessage.style.top = 20 + "%";
 
@@ -181,6 +182,7 @@ gameOverMessage.style.width = "100%";
 gameOverMessage.style.textAlign = "center";
 gameOverMessage.style.color = "#f00";
 gameOverMessage.style.fontSize = "50" + "px";
+gameOverMessage.style.userSelect = 'none';
 gameOverMessage.innerHTML = "Game Over! <br> Refresh page to play again";
 gameOverMessage.style.top = 15 + "%";
 gameOverMessage.style.display = "none";
@@ -192,6 +194,7 @@ gameScoreMessage.style.left = "75%";
 gameScoreMessage.style.textAlign = "center";
 gameScoreMessage.style.color = "#fff";
 gameScoreMessage.style.fontSize = "50" + "px";
+gameScoreMessage.style.userSelect = 'none';
 gameScoreMessage.innerHTML = `Score <br> ${gameScore}`;
 gameScoreMessage.style.top = 2 + "%";
 
