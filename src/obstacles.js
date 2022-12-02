@@ -1,19 +1,33 @@
 import { updateGameScore } from "./script";
 import { createCube } from "./shapes";
 
-export const addObstacle = (scene, position) => {
+const numObstacles = 4
+
+const addBottomObstacle = (scene, position) => {
   const obstacle = createCube(scene);
   obstacle.translateZ(-position);
   return obstacle;
 };
 
-export const initiateObstacles = (scene, obstacleDistance) => {
-  const obstacle_1 = addObstacle(scene, obstacleDistance);
-  const obstacle_2 = addObstacle(scene, 2 * obstacleDistance);
-  const obstacle_3 = addObstacle(scene, 3 * obstacleDistance);
-  const obstacle_4 = addObstacle(scene, 4 * obstacleDistance);
+const addTopObstacle = (scene, position) => {
+  const obstacle = createCube(scene);
+  obstacle.translateZ(-position);
+  obstacle.translateY(5);
+  return obstacle;
+}
 
-  return [obstacle_1, obstacle_2, obstacle_3, obstacle_4];
+export const initiateObstacles = (scene, obstacleDistance) => {
+  const obstaclesArray = []
+
+  for (let i = 1; i <= numObstacles ; i++) {
+    let bottomObstacle = addBottomObstacle(scene, i * obstacleDistance);
+    let topObstacle =  addTopObstacle(scene, i * obstacleDistance);
+    obstaclesArray.push(bottomObstacle)
+    obstaclesArray.push(topObstacle)
+  }
+  console.log(obstaclesArray)
+
+  return obstaclesArray;
 };
 
 export const updateObstaclesPosition = (obstaclesArray, obstacleDistance) => {

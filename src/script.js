@@ -1,6 +1,5 @@
 import "./style.css";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import createCamera from "./camera";
 import createControls from "./controls";
 import { createCube } from "./shapes";
@@ -79,7 +78,7 @@ const controls = createControls(camera, canvas);
  * Cube
  */
 const player = createCube(scene);
-const initialVelocity = 0.5;
+const initialVelocity = 0.4;
 let playerVelocity = initialVelocity;
 let obstacleDistance = 10;
 
