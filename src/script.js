@@ -6,17 +6,15 @@ import createControls from "./controls";
 import { createCube } from "./shapes";
 import createRenderer from "./renderer";
 import calculateNewVelocity from "./jump";
-import {
-  initiateObstacles,
-  updateObstaclesPosition,
-} from "./obstacles";
+import { initiateObstacles, updateObstaclesPosition } from "./obstacles";
 
 /**
  * Base
  */
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
-
+let gameInitiated = false;
+let gameOver = false;
 // Scene
 const scene = new THREE.Scene();
 
@@ -45,9 +43,12 @@ window.addEventListener("resize", () => {
 let isJumping = false;
 
 window.addEventListener("click", () => {
-  if (!isJumping) {
+  if (!isJumping && gameInitiated) {
     isJumping = true;
     playerVelocity = initialVelocity;
+  }
+  if (!gameInitiated) {
+    gameInitiated = true;
   }
 });
 
@@ -85,33 +86,45 @@ const tick = () => {
   const deltaTime = elapsedTime - lastElapsedTime;
   lastElapsedTime = elapsedTime;
   // Update controls
-  controls.update();
 
-  updateObstaclesPosition(obstaclesArray, obstacleDistance);
+  if (gameInitiated && !gameOver) {
+    controls.update();
 
-  if (isJumping) {
-    playerVelocity = calculateNewVelocity(playerVelocity, deltaTime);
-    player.translateY(playerVelocity);
-    if (player.position.y < 0) {
-      isJumping = false;
-      player.position.y = 0;
+    updateObstaclesPosition(obstaclesArray, obstacleDistance);
+
+    if (isJumping) {
+      playerVelocity = calculateNewVelocity(playerVelocity, deltaTime);
+      player.translateY(playerVelocity);
+      if (player.position.y < 0) {
+        isJumping = false;
+        player.position.y = 0;
+      }
+    }
+
+    for (
+      var vertexIndex = 0;
+      vertexIndex < player.geometry.attributes.position.array.length;
+      vertexIndex++
+    ) {
+      var localVertex = new THREE.Vector3()
+        .fromBufferAttribute(player.geometry.attributes.position, vertexIndex)
+        .clone();
+      var globalVertex = localVertex.applyMatrix4(player.matrix);
+      var directionVector = globalVertex.sub(player.position);
+
+      var ray = new THREE.Raycaster(
+        player.position,
+        directionVector.clone().normalize()
+      );
+      var collisionResults = ray.intersectObjects(obstaclesArray);
+      if (
+        collisionResults.length > 0 &&
+        collisionResults[0].distance < directionVector.length()
+      ) {
+        gameOver = true;
+      }
     }
   }
-
-  for (var vertexIndex = 0; vertexIndex < player.geometry.attributes.position.array.length; vertexIndex++)
-  {       
-      var localVertex = new THREE.Vector3().fromBufferAttribute(player.geometry.attributes.position, vertexIndex).clone();
-      var globalVertex = localVertex.applyMatrix4(player.matrix);
-      var directionVector = globalVertex.sub( player.position );
-  
-      var ray = new THREE.Raycaster( player.position, directionVector.clone().normalize() );
-      var collisionResults = ray.intersectObjects( obstaclesArray );
-      if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
-      {
-        console.log('colisao')
-      }
-  }
-  
 
   // Render
   renderer.render(scene, camera);
