@@ -1,18 +1,18 @@
-import { updateGameScore } from "./script";
+import { updateGameScore, ySize } from "./script";
 import { createCube } from "./shapes";
 
 const numObstacles = 4;
 
 const addBottomObstacle = (scene, position) => {
-  const obstacle = createCube(scene);
+  const obstacle = createCube(scene, 0.4);
   obstacle.translateZ(-position);
   return obstacle;
 };
 
 const addTopObstacle = (scene, position) => {
-  const obstacle = createCube(scene);
+  const obstacle = createCube(scene, 0.4);
   obstacle.translateZ(-position);
-  obstacle.translateY(5);
+  obstacle.translateY(ySize);
   return obstacle;
 };
 

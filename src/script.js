@@ -27,9 +27,11 @@ loader.load('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/39222e18-
 let gameScore = 0;
 
 export const updateGameScore = () => {
-  gameScore +=10;
+  gameScore += 5;
   gameScoreMessage.innerHTML = `Score <br> ${gameScore}`;
 }
+
+export const ySize = 10;
 
 /**
  * Sizes
@@ -67,7 +69,7 @@ window.addEventListener("click", () => {
     initialMessage.style.display = "none";
   }
   if (isJumping) {
-    if (lastElapsedTime - jumpStartedTime > 10 * lastDeltaTime && player.position.y < 5) {
+    if (lastElapsedTime - jumpStartedTime > 8 * lastDeltaTime && player.position.y < 5) {
       playerVelocity = initialVelocity;
     }
   }
@@ -84,7 +86,7 @@ const controls = createControls(camera, canvas);
 /**
  * Cube
  */
-const player = createCube(scene);
+const player = createCube(scene, 1);
 const initialVelocity = 0.4;
 let playerVelocity = initialVelocity;
 let obstacleDistance = 10;
@@ -125,7 +127,7 @@ const tick = () => {
       player.position.y = 0;
     }
 
-    if (player.position.y > 5) {
+    if (player.position.y > ySize) {
       playerVelocity = 0;
     }
 
