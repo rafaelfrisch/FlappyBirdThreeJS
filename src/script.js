@@ -18,6 +18,8 @@ let gameOver = false;
 // Scene
 const scene = new THREE.Scene();
 
+let gameScore = 0;
+
 /**
  * Sizes
  */
@@ -153,8 +155,18 @@ gameOverMessage.style.textAlign = "center";
 gameOverMessage.style.color = "#f00";
 gameOverMessage.style.fontSize = "50" + "px";
 gameOverMessage.innerHTML = "Game Over! <br> Refresh page to play again";
-gameOverMessage.style.top = 10 + "%";
+gameOverMessage.style.top = 15 + "%";
 gameOverMessage.style.display = "none";
+
+const gameScoreMessage = document.createElement("div");
+gameScoreMessage.style.position = "absolute";
+gameScoreMessage.style.width = "100%";
+gameScoreMessage.style.textAlign = "center";
+gameScoreMessage.style.color = "#fff";
+gameScoreMessage.style.fontSize = "50" + "px";
+gameScoreMessage.innerHTML = `Score <br> ${gameScore}`;
+gameScoreMessage.style.top = 5 + "%";
 
 document.body.appendChild(initialMessage);
 document.body.appendChild(gameOverMessage);
+document.body.appendChild(gameScoreMessage);
