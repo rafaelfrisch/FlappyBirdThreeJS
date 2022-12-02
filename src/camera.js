@@ -7,9 +7,9 @@ const createCamera = (scene, sizes) => {
     0.1,
     100
   );
-  camera.position.x = 1;
+  camera.position.x = 10;
   camera.position.y = 1;
-  camera.position.z = 4;
+  camera.position.z = 5;
   scene.add(camera);
   return camera;
 };

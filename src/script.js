@@ -33,6 +33,8 @@ export const updateGameScore = () => {
 
 export const ySize = 10;
 
+export const yDelta = 3;
+
 /**
  * Sizes
  */
@@ -69,7 +71,7 @@ window.addEventListener("click", () => {
     initialMessage.style.display = "none";
   }
   if (isJumping) {
-    if (lastElapsedTime - jumpStartedTime > 8 * lastDeltaTime && player.position.y < 5) {
+    if (lastElapsedTime - jumpStartedTime > 8 * lastDeltaTime && player.position.y < 5 - yDelta) {
       playerVelocity = initialVelocity;
     }
   }
@@ -122,12 +124,12 @@ const tick = () => {
       player.translateY(playerVelocity);
     }
 
-    if (player.position.y < 0) {
+    if (player.position.y < -yDelta) {
       isJumping = false;
-      player.position.y = 0;
+      player.position.y = -yDelta;
     }
 
-    if (player.position.y > ySize) {
+    if (player.position.y > ySize -yDelta) {
       playerVelocity = 0;
     }
 
